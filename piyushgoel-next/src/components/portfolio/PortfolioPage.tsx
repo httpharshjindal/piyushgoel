@@ -11,6 +11,9 @@ import { emptyCard, normalizeCard } from "./cardUtils";
 import { Header } from "./Header";
 import { Hero } from "./Hero";
 import { SectionBlock } from "./SectionBlock";
+import ThreeBackground from "./ThreeBackground";
+import CircularText from "./CircularText";
+import CurvedLoop from "./CurvedLoop";
 import type { CardData, SectionData } from "@/app/lib/default-data";
 import type { SectionInput } from "@/db/dal";
 
@@ -174,7 +177,9 @@ export function PortfolioPage({
   }
 
   return (
-    <div className="px-[18px] pb-12 text-ink">
+    <div className="px-[18px] pb-12 text-ink relative">
+        <ThreeBackground />
+
         {/* WhatsApp Floating Button with Micro-interactions */}
         <motion.a
           href="https://wa.me/919690992005?text=Hi%20Piyush%2C%20I%27d%20like%20to%20connect%20with%20you%20regarding%20a%20project."
@@ -241,6 +246,23 @@ export function PortfolioPage({
         <main>
           <Hero />
 
+          {/* CurvedLoop marquee */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mt-7 overflow-hidden"
+          >
+            <CurvedLoop
+              marqueeText="Voice Artist ✦ UGC Creator ✦ Content Host ✦ Radio Host ✦ Narration ✦ Podcasting ✦"
+              speed={1.5}
+              curveAmount={100}
+              direction="left"
+              interactive
+              className="text-2xl font-bold text-oxblood/60"
+            />
+          </motion.div>
+
           {/* About Section with Scroll Animation */}
           <motion.section
             id="about"
@@ -274,12 +296,22 @@ export function PortfolioPage({
                 </motion.div>
               </motion.div>
               <motion.div
-                className="flex flex-col gap-4 rounded-lg border border-ink/10 bg-white/50 p-5"
+                className="flex flex-col gap-4 rounded-lg border border-ink/10 bg-white/50 p-5 relative"
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
+                {/* CircularText decorative element */}
+                <div className="absolute -top-8 -right-8 opacity-20">
+                  <CircularText
+                    text="PIYUSH*GOEL*VOICE*ARTIST*"
+                    onHover="speedUp"
+                    spinDuration={15}
+                    className="text-oxblood"
+                  />
+                </div>
+
                 {[
                   { label: "Years Active", value: "5+" },
                   { label: "Projects Delivered", value: "200+" },

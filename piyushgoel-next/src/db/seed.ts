@@ -50,6 +50,15 @@ const sectionData = [
     createdBy: "seed",
     updatedBy: "seed",
   },
+  {
+    sectionId: "reels",
+    title: "Photo Reel",
+    note: "A quick sample of my work in a scrolling reel format.",
+    sortOrder: 5,
+    metadata: { layout: "reels" },
+    createdBy: "seed",
+    updatedBy: "seed",
+  },
 ];
 
 // ── Card data keyed by section ──

@@ -15,36 +15,12 @@ interface MovingReelsProps {
   onRemoveSection?: (section: SectionData) => void;
 }
 
-const FALLBACK_PHOTOS = [
-  "https://picsum.photos/seed/reel01/400/520",
-  "https://picsum.photos/seed/reel02/400/520",
-  "https://picsum.photos/seed/reel03/400/520",
-  "https://picsum.photos/seed/reel04/400/520",
-  "https://picsum.photos/seed/reel05/400/520",
-  "https://picsum.photos/seed/reel06/400/520",
-  "https://picsum.photos/seed/reel07/400/520",
-  "https://picsum.photos/seed/reel08/400/520",
-  "https://picsum.photos/seed/reel09/400/520",
-  "https://picsum.photos/seed/reel10/400/520",
-  "https://picsum.photos/seed/reel11/400/520",
-  "https://picsum.photos/seed/reel12/400/520",
-  "https://picsum.photos/seed/reel13/400/520",
-  "https://picsum.photos/seed/reel14/400/520",
-  "https://picsum.photos/seed/reel15/400/520",
-  "https://picsum.photos/seed/reel16/400/520",
-  "https://picsum.photos/seed/reel17/400/520",
-  "https://picsum.photos/seed/reel18/400/520",
-];
-
 export function MovingReels({ section, cards, adminMode, onAdd, onEdit, onRemove, onEditSection, onRemoveSection }: MovingReelsProps) {
-  const imageUrls = useMemo(() => {
-    const urls = cards.filter((c) => c.imageUrl).map((c) => c.imageUrl);
-    if (urls.length >= 6) return urls;
-    return [...urls, ...FALLBACK_PHOTOS].slice(0, 18);
-  }, [cards]);
+  const imageUrls = useMemo(() => cards.filter((c) => c.imageUrl).map((c) => c.imageUrl), [cards]);
 
   const rows = useMemo(() => {
-    const chunkSize = Math.max(6, Math.ceil(imageUrls.length / 3));
+    if (imageUrls.length < 6) return [];
+    const chunkSize = Math.ceil(imageUrls.length / 3);
     return [
       { photos: imageUrls.slice(0, chunkSize), direction: "left", duration: 26 },
       { photos: imageUrls.slice(chunkSize, chunkSize * 2), direction: "right", duration: 32 },

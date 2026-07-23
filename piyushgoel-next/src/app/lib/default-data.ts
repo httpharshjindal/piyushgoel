@@ -45,6 +45,14 @@ export const defaultSections: SectionData[] = [
     sortOrder: 4,
     metadata: { layout: "fan" },
   },
+  {
+    id: "reels",
+    sectionId: "reels",
+    title: "Photo Reel",
+    note: "A quick sample of my work in a scrolling reel format.",
+    sortOrder: 5,
+    metadata: { layout: "reels" },
+  },
 ];
 
 export const sections = defaultSections;

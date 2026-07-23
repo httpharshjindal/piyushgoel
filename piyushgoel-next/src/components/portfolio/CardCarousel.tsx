@@ -9,7 +9,7 @@ interface CardCarouselProps {
   cardWidth?: number;
 }
 
-export function CardCarousel({ children, cardWidth = 320 }: CardCarouselProps) {
+export function CardCarousel({ children, cardWidth = 280 }: CardCarouselProps) {
   const total = children.length;
   const viewRef = useRef<HTMLDivElement>(null);
   const [paused, setPaused] = useState(false);
@@ -104,8 +104,7 @@ export function CardCarousel({ children, cardWidth = 320 }: CardCarouselProps) {
     >
       <div
         ref={viewRef}
-        className="flex overflow-hidden scroll-smooth"
-        style={{ gap: "1rem" }}
+        className="flex overflow-hidden scroll-smooth gap-2 sm:gap-4"
         onMouseDown={(e) => onDragStart(e.clientX)}
         onMouseMove={(e) => onDragMove(e.clientX)}
         onMouseUp={onDragEnd}

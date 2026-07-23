@@ -342,8 +342,8 @@ export function TestimonialStrip({
           </div>
         ) : (
           /* Mobile Horizontal Scrollable Snap Layout */
-          <div className="-mx-4 overflow-x-auto px-4 pb-8 scrollbar-none snap-x snap-mandatory">
-            <div className="flex gap-5 w-max mx-auto px-[8vw]">
+          <div className="-mx-4 overflow-x-auto px-4 pb-6 sm:pb-8 scrollbar-none snap-x snap-mandatory">
+            <div className="flex gap-3 sm:gap-5 w-max mx-auto px-[4vw] sm:px-[8vw]">
               {orderedCards.map((card, idx) => {
                 const meta = card.metadata || {};
                 const role = (meta.role as string) || "";
@@ -354,7 +354,7 @@ export function TestimonialStrip({
                 return (
                   <div
                     key={card.id}
-                    className="w-[290px] sm:w-[350px] snap-center select-none"
+                    className="w-[260px] sm:w-[310px] lg:w-[350px] snap-center select-none"
                   >
                     <div className="w-full text-left rounded-[30px]">
                       <div

@@ -178,7 +178,7 @@ const cardData: Record<string, any[]> = {
       title: "Aarav Mehta",
       description: "Piyush has an incredible voice — warm, clear, and professional. He brought our script to life and delivered well ahead of schedule. Working with him felt seamless from start to finish, and the final output exceeded our expectations.",
       url: "", imageUrl: "", useCustomThumbnail: false, embed: false, size: "standard", sortOrder: 14,
-      metadata: { role: "Creative Lead", company: "YouTube Partner", rating: 5, accent: "linear-gradient(135deg, #2d6cdf 0%, #6d7cff 100%)" },
+      metadata: { role: "Creative Lead", company: "YouTube Partner", rating: 5, accent: "linear-gradient(135deg, #0c1445 0%, #2563eb 60%, #60a5fa 100%)" },
       createdBy: "seed", updatedBy: "seed",
     },
     {
@@ -186,7 +186,7 @@ const cardData: Record<string, any[]> = {
       title: "Sara Khan",
       description: "Working with Piyush was effortless. He understood the tone we needed instantly and delivered a voice that perfectly matched our brand story. The communication was smooth throughout and the turnaround time was impressive.",
       url: "", imageUrl: "", useCustomThumbnail: false, embed: false, size: "standard", sortOrder: 15,
-      metadata: { role: "Manager", company: "Pocket FM", rating: 5, accent: "linear-gradient(135deg, #814cff 0%, #cf6cff 100%)" },
+      metadata: { role: "Manager", company: "Pocket FM", rating: 5, accent: "linear-gradient(135deg, #3b0764 0%, #7c3aed 60%, #a78bfa 100%)" },
       createdBy: "seed", updatedBy: "seed",
     },
     {
@@ -194,7 +194,7 @@ const cardData: Record<string, any[]> = {
       title: "Rohan Das",
       description: "Piyush's narration brought a natural depth to our audio series. The pacing was perfect and the final cut needed zero revisions. His ability to connect with the listener through voice alone is something we haven't found in anyone else.",
       url: "", imageUrl: "", useCustomThumbnail: false, embed: false, size: "standard", sortOrder: 16,
-      metadata: { role: "Content Head", company: "Kuku FM", rating: 5, accent: "linear-gradient(135deg, #17a2a4 0%, #71d7c7 100%)" },
+      metadata: { role: "Content Head", company: "Kuku FM", rating: 5, accent: "linear-gradient(135deg, #022c22 0%, #059669 60%, #34d399 100%)" },
       createdBy: "seed", updatedBy: "seed",
     },
     {
@@ -202,7 +202,7 @@ const cardData: Record<string, any[]> = {
       title: "Nisha Verma",
       description: "We needed a voice that felt both authoritative and relatable. Piyush delivered exactly that — our campaign engagement went up significantly. He's someone we now work with on a regular basis.",
       url: "", imageUrl: "", useCustomThumbnail: false, embed: false, size: "standard", sortOrder: 17,
-      metadata: { role: "Producer", company: "Story TV", rating: 5, accent: "linear-gradient(135deg, #f97316 0%, #fdba74 100%)" },
+      metadata: { role: "Producer", company: "Story TV", rating: 5, accent: "linear-gradient(135deg, #7c2d12 0%, #ea580c 60%, #fbbf24 100%)" },
       createdBy: "seed", updatedBy: "seed",
     },
     {
@@ -210,7 +210,7 @@ const cardData: Record<string, any[]> = {
       title: "Vikram Mehta",
       description: "Piyush has a rare ability to adapt his voice to any format. Whether it's a news segment or a casual reel, he nails the tone every time. His professionalism and attention to detail make him our go-to voice artist.",
       url: "", imageUrl: "", useCustomThumbnail: false, embed: false, size: "standard", sortOrder: 18,
-      metadata: { role: "Director", company: "Radio City", rating: 5, accent: "linear-gradient(135deg, #ec4899 0%, #fbcfe8 100%)" },
+      metadata: { role: "Director", company: "Radio City", rating: 5, accent: "linear-gradient(135deg, #831843 0%, #db2777 60%, #f472b6 100%)" },
       createdBy: "seed", updatedBy: "seed",
     },
   ],

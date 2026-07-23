@@ -6,6 +6,7 @@ import { CardCarousel } from "./CardCarousel";
 import { VideoProvider } from "./VideoContext";
 import { TestimonialStrip } from "./TestimonialStrip";
 import { FannedCardDeck } from "./RoundedCards";
+import { MovingReels } from "./MovingReels";
 import type { CardData, SectionData } from "@/app/lib/default-data";
 
 interface SectionBlockProps {
@@ -75,6 +76,21 @@ export function SectionBlock({ section, cards, adminMode, onAdd, onEdit, onRemov
         )}
         <FannedCardDeck items={fanCards} adminMode={adminMode} onEdit={onEdit} onRemove={onRemove} />
       </motion.section>
+    );
+  }
+
+  if (layout === "reels") {
+    return (
+      <MovingReels
+        section={section}
+        cards={cards}
+        adminMode={adminMode}
+        onEdit={onEdit}
+        onRemove={onRemove}
+        onAdd={onAdd}
+        onEditSection={onEditSection}
+        onRemoveSection={onRemoveSection}
+      />
     );
   }
 

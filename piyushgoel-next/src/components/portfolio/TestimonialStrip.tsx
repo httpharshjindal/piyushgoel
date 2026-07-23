@@ -18,11 +18,11 @@ interface TestimonialStripProps {
 
 // Premium presets for collectible cards
 const GRADIENTS = [
-  "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #93c5fd 100%)", // Sapphire Blue
-  "linear-gradient(135deg, #4c1d95 0%, #8b5cf6 50%, #c084fc 100%)", // Royal Purple
-  "linear-gradient(135deg, #064e3b 0%, #10b981 50%, #6ee7b7 100%)", // Emerald Dream
-  "linear-gradient(135deg, #7c2d12 0%, #f97316 50%, #fdba74 100%)", // Fire Orange
-  "linear-gradient(135deg, #831843 0%, #ec4899 50%, #fbcfe8 100%)", // Rose Quartz
+  "linear-gradient(135deg, #0c1445 0%, #2563eb 60%, #60a5fa 100%)", // Deep Blue
+  "linear-gradient(135deg, #3b0764 0%, #7c3aed 60%, #a78bfa 100%)", // Violet
+  "linear-gradient(135deg, #022c22 0%, #059669 60%, #34d399 100%)", // Emerald
+  "linear-gradient(135deg, #7c2d12 0%, #ea580c 60%, #fbbf24 100%)", // Amber
+  "linear-gradient(135deg, #831843 0%, #db2777 60%, #f472b6 100%)", // Rose
 ];
 
 // SSR-Safe hook to detect desktop with a fine pointer and screen min-width
@@ -209,7 +209,7 @@ export function TestimonialStrip({
     const maxOffset = (orderedCards.length - 1) / 2;
     let rotate = Math.max(-20, Math.min(20, offset * 12));
     let x = offset * 150;
-    let y = Math.abs(offset) * 20; // center=0 (highest on screen), edges=40 (lowest on screen)
+    let y = Math.pow(Math.abs(offset), 2) * 15; // center=0, next=15, edges=60
     let scale = 1 - Math.abs(offset) * 0.05;
     let zIndex = 30 - Math.abs(offset);
 

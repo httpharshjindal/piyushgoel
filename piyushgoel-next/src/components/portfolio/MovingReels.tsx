@@ -1,23 +1,21 @@
+"use client";
+
 import Image from "next/image";
+import { useMemo } from "react";
+import type { CardData, SectionData } from "@/app/lib/default-data";
 
-/**
- * PhotoWallReel
- * -----------------------------------------------------------------------
- * A vertical, Instagram-Reel-sized (9:16) wall of photo tiles arranged in
- * rows. Each row auto-scrolls infinitely and horizontally, alternating
- * direction line-to-line (row 1 → left, row 2 → right, row 3 → left, ...)
- * exactly like the reference. Pure CSS keyframe animation — no JS timers,
- * so it's smooth, GPU-accelerated, and works great recorded as reel content.
- *
- * Swap PHOTOS below for your own image URLs. Each row pulls a different
- * slice of the array so the wall doesn't feel repetitive.
- *
- * Export tip: the canvas is built at a true 1080x1920 reel ratio (scaled
- * responsively via aspect-ratio), so a screen recording / screenshot of
- * this component drops straight into Reels/Shorts/TikTok at full quality.
- */
+interface MovingReelsProps {
+  section?: SectionData;
+  cards: CardData[];
+  adminMode?: boolean;
+  onEdit?: (card: CardData) => void;
+  onRemove?: (card: CardData) => void;
+  onAdd?: (sectionId: string) => void;
+  onEditSection?: (section: SectionData) => void;
+  onRemoveSection?: (section: SectionData) => void;
+}
 
-const PHOTOS = [
+const FALLBACK_PHOTOS = [
   "https://picsum.photos/seed/reel01/400/520",
   "https://picsum.photos/seed/reel02/400/520",
   "https://picsum.photos/seed/reel03/400/520",
@@ -38,16 +36,38 @@ const PHOTOS = [
   "https://picsum.photos/seed/reel18/400/520",
 ];
 
-// One config entry per row: which photos it shows, scroll direction, and speed.
-const ROWS = [
-  { photos: PHOTOS.slice(0, 6), direction: "left", duration: 26 },
-  { photos: PHOTOS.slice(6, 12), direction: "right", duration: 32 },
-  { photos: PHOTOS.slice(12, 18), direction: "left", duration: 22 },
-];
+export function MovingReels({ section, cards, adminMode, onAdd, onEdit, onRemove, onEditSection, onRemoveSection }: MovingReelsProps) {
+  const imageUrls = useMemo(() => {
+    const urls = cards.filter((c) => c.imageUrl).map((c) => c.imageUrl);
+    if (urls.length >= 6) return urls;
+    return [...urls, ...FALLBACK_PHOTOS].slice(0, 18);
+  }, [cards]);
 
-export default function PhotoWallReel() {
+  const rows = useMemo(() => {
+    const chunkSize = Math.max(6, Math.ceil(imageUrls.length / 3));
+    return [
+      { photos: imageUrls.slice(0, chunkSize), direction: "left", duration: 26 },
+      { photos: imageUrls.slice(chunkSize, chunkSize * 2), direction: "right", duration: 32 },
+      { photos: imageUrls.slice(chunkSize * 2, chunkSize * 3), direction: "left", duration: 22 },
+    ].filter((r) => r.photos.length > 0);
+  }, [imageUrls]);
+
   return (
-    <div className="w-full flex items-center justify-center bg-black py-6">
+    <div className="w-full flex items-center justify-center bg-black py-6 relative">
+      {adminMode && (
+        <div className="absolute top-4 right-4 z-30 flex gap-2 rounded-full border border-white/10 bg-black/60 p-1.5 backdrop-blur-md">
+          {onEditSection && (
+            <button type="button" className="rounded-full border border-white/10 px-3.5 py-1.5 text-xs font-semibold text-white hover:bg-white/10 transition-colors" onClick={() => onEditSection(section!)}>Edit Section</button>
+          )}
+          {onRemoveSection && (
+            <button type="button" className="rounded-full border border-red-500/20 px-3.5 py-1.5 text-xs font-semibold text-red-400 hover:bg-red-500/10 transition-colors" onClick={() => onRemoveSection(section!)}>Remove</button>
+          )}
+          {onAdd && (
+            <button type="button" className="rounded-full bg-white px-4 py-1.5 text-xs font-bold text-black hover:bg-white/90 transition-colors" onClick={() => onAdd(section!.sectionId)}>+ Add Image</button>
+          )}
+        </div>
+      )}
+
       <style>{`
         @keyframes scroll-left {
           from { transform: translateX(0); }
@@ -66,48 +86,26 @@ export default function PhotoWallReel() {
         .row-right { animation: scroll-right linear infinite; }
       `}</style>
 
-      {/* Reel canvas: true 9:16 ratio */}
-      <div
-        className="relative bg-black overflow-hidden"
-        style={{
-          width: "min(92vw, 405px)",
-          aspectRatio: "9 / 16",
-          borderRadius: 18,
-        }}
-      >
+      <div className="relative bg-black overflow-hidden" style={{ width: "min(92vw, 405px)", aspectRatio: "9 / 16", borderRadius: 18 }}>
         <div className="absolute inset-0 flex flex-col justify-center gap-[10px]">
-          {ROWS.map((row, i) => (
-            <div key={i} className="overflow-hidden w-full">
-              <div
-                className={`row-track ${row.direction === "left" ? "row-left" : "row-right"}`}
-                style={{ animationDuration: `${row.duration}s` }}
-              >
-                {/* photos rendered twice back-to-back = seamless infinite loop */}
-                {[...row.photos, ...row.photos].map((src, idx) => (
-                  <Image
-                    key={idx}
-                    src={src}
-                    alt=""
-                    width={108}
-                    height={140}
-                    draggable={false}
-                    className="select-none object-cover flex-shrink-0"
-                    style={{ borderRadius: 14 }}
-                  />
-                ))}
-              </div>
+          {rows.length === 0 ? (
+            <div className="flex items-center justify-center h-full text-white/30 text-xs">
+              {adminMode ? "Add images to fill the reel" : ""}
             </div>
-          ))}
+          ) : (
+            rows.map((row, i) => (
+              <div key={i} className="overflow-hidden w-full">
+                <div className={`row-track ${row.direction === "left" ? "row-left" : "row-right"}`} style={{ animationDuration: `${row.duration}s` }}>
+                  {[...row.photos, ...row.photos].map((src, idx) => (
+                    <Image key={idx} src={src} alt="" width={108} height={140} draggable={false} className="select-none object-cover flex-shrink-0" style={{ borderRadius: 14 }} />
+                  ))}
+                </div>
+              </div>
+            ))
+          )}
         </div>
 
-        {/* soft edge fade so tiles don't hard-cut at the canvas edge */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 8%, rgba(0,0,0,0) 92%, rgba(0,0,0,0.9) 100%)",
-          }}
-        />
+        <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(90deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 8%, rgba(0,0,0,0) 92%, rgba(0,0,0,0.9) 100%)" }} />
       </div>
     </div>
   );

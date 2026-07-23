@@ -106,7 +106,7 @@ export function SectionBlock({ section, cards, adminMode, onAdd, onEdit, onRemov
   function renderCards() {
     if (section.sectionId === "companies") {
       return (
-        <div className={`grid gap-4`} style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-4" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
           {cards.map((card) => (
             <MediaCard key={card.id} card={card} adminMode={adminMode} onEdit={onEdit} onRemove={onRemove} onAudit={onAudit} fixedHeight={fixedHeight} />
           ))}
@@ -116,7 +116,7 @@ export function SectionBlock({ section, cards, adminMode, onAdd, onEdit, onRemov
 
     if (layout === "grid") {
       return (
-        <div className={`grid gap-4`} style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-4" style={{ gridTemplateColumns: `repeat(${columns}, 1fr)` }}>
           {cards.map((card) => (
             <MediaCard key={card.id} card={card} adminMode={adminMode} onEdit={onEdit} onRemove={onRemove} onAudit={onAudit} fixedHeight={fixedHeight} />
           ))}
@@ -150,7 +150,7 @@ export function SectionBlock({ section, cards, adminMode, onAdd, onEdit, onRemov
   return (
     <motion.section
       id={section.sectionId}
-      className={`mt-7 rounded-lg border border-ink/10 px-[18px] py-7 shadow-[0_18px_50px_rgba(40,24,18,0.08)] ${section.metadata?.layout === "testimonials" ? "bg-transparent" : "bg-white/70"}`}
+      className={`mt-5 sm:mt-7 rounded-lg border border-ink/10 px-4 sm:px-[18px] py-5 sm:py-7 shadow-[0_18px_50px_rgba(40,24,18,0.08)] ${section.metadata?.layout === "testimonials" ? "bg-transparent" : "bg-white/70"}`}
       initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -158,7 +158,7 @@ export function SectionBlock({ section, cards, adminMode, onAdd, onEdit, onRemov
     >
       <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="font-serif text-5xl font-bold leading-none" style={{ color: accentColor }}>{section.title}</h2>
+          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold leading-none" style={{ color: accentColor }}>{section.title}</h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">{section.note}</p>
         </div>
         <div className="flex flex-wrap gap-2">

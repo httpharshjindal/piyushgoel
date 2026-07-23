@@ -42,15 +42,16 @@ export function ReelCardDialog({ open, draft, onChange, onClose, onSave }: ReelC
   }, [open]);
 
   if (!open || !draft) return null;
+  const currentDraft = draft;
 
   function updateDraft(imageUrl: string, redirectUrl: string) {
     setLocalImageUrl(imageUrl);
     setLocalRedirectUrl(redirectUrl);
     onChange({
-      ...draft,
+      ...currentDraft,
       imageUrl,
       url: redirectUrl,
-      metadata: { ...draft.metadata, cropZoom: zoom, cropX: posX, cropY: posY },
+      metadata: { ...currentDraft.metadata, cropZoom: zoom, cropX: posX, cropY: posY },
     } as CardData);
   }
 
@@ -59,10 +60,10 @@ export function ReelCardDialog({ open, draft, onChange, onClose, onSave }: ReelC
     setPosX(x);
     setPosY(y);
     onChange({
-      ...draft,
+      ...currentDraft,
       imageUrl: localImageUrl,
       url: localRedirectUrl,
-      metadata: { ...draft.metadata, cropZoom: z, cropX: x, cropY: y },
+      metadata: { ...currentDraft.metadata, cropZoom: z, cropX: x, cropY: y },
     } as CardData);
   }
 
@@ -74,10 +75,10 @@ export function ReelCardDialog({ open, draft, onChange, onClose, onSave }: ReelC
       setZoom(1); setPosX(0); setPosY(0);
       setLocalImageUrl(result.url);
       onChange({
-        ...draft,
+        ...currentDraft,
         imageUrl: result.url,
         url: localRedirectUrl,
-        metadata: { ...draft.metadata, cropZoom: 1, cropX: 0, cropY: 0 },
+        metadata: { ...currentDraft.metadata, cropZoom: 1, cropX: 0, cropY: 0 },
       } as CardData);
     }
   }
@@ -93,10 +94,10 @@ export function ReelCardDialog({ open, draft, onChange, onClose, onSave }: ReelC
           setZoom(1); setPosX(0); setPosY(0);
           setLocalImageUrl(result.url);
           onChange({
-            ...draft,
+            ...currentDraft,
             imageUrl: result.url,
             url: localRedirectUrl,
-            metadata: { ...draft.metadata, cropZoom: 1, cropX: 0, cropY: 0 },
+            metadata: { ...currentDraft.metadata, cropZoom: 1, cropX: 0, cropY: 0 },
           } as CardData);
         }
         return;
@@ -194,7 +195,7 @@ export function ReelCardDialog({ open, draft, onChange, onClose, onSave }: ReelC
               value={localImageUrl}
               onChange={(e) => {
                 setLocalImageUrl(e.target.value);
-                onChange({ ...draft, imageUrl: e.target.value, url: localRedirectUrl, metadata: { ...draft.metadata, cropZoom: zoom, cropX: posX, cropY: posY } } as CardData);
+                onChange({ ...currentDraft, imageUrl: e.target.value, url: localRedirectUrl, metadata: { ...currentDraft.metadata, cropZoom: zoom, cropX: posX, cropY: posY } } as CardData);
               }}
               placeholder="https://..."
             />
@@ -207,7 +208,7 @@ export function ReelCardDialog({ open, draft, onChange, onClose, onSave }: ReelC
               value={localRedirectUrl}
               onChange={(e) => {
                 setLocalRedirectUrl(e.target.value);
-                onChange({ ...draft, imageUrl: localImageUrl, url: e.target.value, metadata: { ...draft.metadata, cropZoom: zoom, cropX: posX, cropY: posY } } as CardData);
+                onChange({ ...currentDraft, imageUrl: localImageUrl, url: e.target.value, metadata: { ...currentDraft.metadata, cropZoom: zoom, cropX: posX, cropY: posY } } as CardData);
               }}
               placeholder="https://instagram.com/reel/..."
             />
@@ -224,10 +225,10 @@ export function ReelCardDialog({ open, draft, onChange, onClose, onSave }: ReelC
             className="rounded-full bg-oxblood px-5 py-3 font-bold text-white disabled:opacity-50"
             disabled={!localImageUrl || uploading}
             onClick={() => onSave({
-              ...draft,
+              ...currentDraft,
               imageUrl: localImageUrl,
               url: localRedirectUrl,
-              metadata: { ...draft.metadata, cropZoom: zoom, cropX: posX, cropY: posY },
+              metadata: { ...currentDraft.metadata, cropZoom: zoom, cropX: posX, cropY: posY },
             } as CardData)}
           >
             {uploading ? "Uploading..." : "Save"}

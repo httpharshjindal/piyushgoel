@@ -6,11 +6,7 @@ export const metadata: Metadata = {
   description:
     "Editorial portfolio for Piyush Goel, voice artist, UGC creator, and content host.",
   icons: {
-    icon: [
-      { url: "/icon.png", sizes: "any", type: "image/png" },
-    ],
-    shortcut: "/icon.png",
-    apple: "/icon.png",
+    icon: "/favicon.png",
   },
 };
 
@@ -19,10 +15,6 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="h-full overflow-x-hidden">
-      <head>
-        <link rel="icon" href="/icon.png" sizes="any" />
-        <link rel="shortcut icon" href="/icon.png" />
-      </head>
       <body className="min-h-full overflow-x-hidden font-sans antialiased">{children}</body>
     </html>
   );

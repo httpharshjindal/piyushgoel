@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "**.gstatic.com" },
     ],
   },
+  async rewrites() {
+    return [
+      { source: "/favicon.ico", destination: "/favicon.png" },
+    ];
+  },
 };
 
 export default nextConfig;

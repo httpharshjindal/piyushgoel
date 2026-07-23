@@ -145,6 +145,8 @@ export function SectionBlock({ section, cards, adminMode, onAdd, onEdit, onRemov
     );
   }
 
+  const isWorkSection = section.sectionId === "work";
+
   return (
     <motion.section
       id={section.sectionId}

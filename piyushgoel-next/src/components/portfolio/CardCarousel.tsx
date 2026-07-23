@@ -19,6 +19,8 @@ export function CardCarousel({ children, cardWidth = 320 }: CardCarouselProps) {
   const dragRef = useRef({ active: false, startX: 0, scrollLeft: 0 });
   const doneRef = useRef(false);
   const speedRef = useRef(0.4);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
   const tick = useCallback(() => {
     if (doneRef.current) return;
@@ -38,6 +40,30 @@ export function CardCarousel({ children, cardWidth = 320 }: CardCarouselProps) {
     rafRef.current = requestAnimationFrame(tick);
     return () => { doneRef.current = true; if (rafRef.current) cancelAnimationFrame(rafRef.current); };
   }, [tick]);
+
+  const updateScrollButtons = useCallback(() => {
+    const el = viewRef.current;
+    if (!el) return;
+    const half = el.scrollWidth / 2;
+    const pos = el.scrollLeft % half;
+    setCanScrollLeft(pos > 10);
+    setCanScrollRight(pos < half - 10);
+  }, []);
+
+  useEffect(() => {
+    const el = viewRef.current;
+    if (!el) return;
+    el.addEventListener("scroll", updateScrollButtons, { passive: true });
+    updateScrollButtons();
+    return () => el.removeEventListener("scroll", updateScrollButtons);
+  }, [updateScrollButtons, children]);
+
+  const scrollBy = (direction: "left" | "right") => {
+    const el = viewRef.current;
+    if (!el) return;
+    const amount = (cardWidth + 16) * (direction === "left" ? -1 : 1);
+    el.scrollBy({ left: amount, behavior: "smooth" });
+  };
 
   const onDragStart = (clientX: number) => {
     const el = viewRef.current;
@@ -72,13 +98,13 @@ export function CardCarousel({ children, cardWidth = 320 }: CardCarouselProps) {
 
   return (
     <div
-      className="relative select-none overflow-hidden"
+      className="relative select-none"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => { setPaused(false); }}
     >
       <div
         ref={viewRef}
-        className="flex overflow-hidden"
+        className="flex overflow-hidden scroll-smooth"
         style={{ gap: "1rem" }}
         onMouseDown={(e) => onDragStart(e.clientX)}
         onMouseMove={(e) => onDragMove(e.clientX)}
@@ -99,6 +125,28 @@ export function CardCarousel({ children, cardWidth = 320 }: CardCarouselProps) {
           </div>
         ))}
       </div>
+
+      {/* Navigation Arrows */}
+      <button
+        type="button"
+        onClick={() => scrollBy("left")}
+        className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-ink/10 bg-white/90 text-ink shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:shadow-xl disabled:opacity-0 disabled:pointer-events-none"
+        aria-label="Scroll left"
+      >
+        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m15 18-6-6 6-6" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        onClick={() => scrollBy("right")}
+        className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 z-10 flex h-10 w-10 items-center justify-center rounded-full border border-ink/10 bg-white/90 text-ink shadow-lg backdrop-blur-sm transition-all hover:bg-white hover:shadow-xl disabled:opacity-0 disabled:pointer-events-none"
+        aria-label="Scroll right"
+      >
+        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </button>
     </div>
   );
 }

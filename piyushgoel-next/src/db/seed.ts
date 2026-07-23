@@ -80,14 +80,6 @@ const cardData: Record<string, any[]> = {
       imageUrl: "", useCustomThumbnail: false, embed: true, size: "standard", sortOrder: 3,
       createdBy: "seed", updatedBy: "seed",
     },
-    {
-      section: "work", type: "youtube",
-      title: "YouTube Channel",
-      description: "Main YouTube channel featuring voice work, hosting, and creator-led content.",
-      url: "https://www.youtube.com/channel/UC43qCBEfmy-wouPmYlLSpIg",
-      imageUrl: "", useCustomThumbnail: false, embed: false, size: "standard", sortOrder: 4,
-      createdBy: "seed", updatedBy: "seed",
-    },
   ],
 
   companies: [

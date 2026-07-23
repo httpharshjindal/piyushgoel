@@ -79,11 +79,13 @@ export function MediaCard({ card, adminMode, onEdit, onRemove, onAudit, fixedHei
           className="relative block overflow-hidden"
           onClick={() => onAudit?.(item)}
         >
-          <Image className={`${aspectClass} w-full object-cover`} src={thumbnail} alt={item.title} width={640} height={360} />
-          <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors hover:bg-black/10">
-            <svg className="h-12 w-12 text-white drop-shadow-lg opacity-80" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M8 5v14l11-7z" />
-            </svg>
+          <Image className={`${aspectClass} w-full object-cover transition-transform duration-500 group-hover:scale-105`} src={thumbnail} alt={item.title} width={640} height={360} />
+          <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-all duration-300 group-hover:bg-black/20">
+            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 text-oxblood opacity-0 shadow-lg transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 scale-75">
+              <svg className="h-6 w-6 ml-0.5" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M8 5v14l11-7z" />
+              </svg>
+            </div>
           </div>
         </a>
       );
@@ -104,26 +106,26 @@ export function MediaCard({ card, adminMode, onEdit, onRemove, onAudit, fixedHei
 
   return (
     <article
-      className="group relative overflow-hidden rounded-lg border border-ink/10 bg-white shadow-[0_10px_30px_rgba(40,24,18,0.06)] transition-all duration-200 hover:scale-[1.03] hover:shadow-[0_10px_40px_rgba(40,24,18,0.12)]"
+      className="group relative overflow-hidden rounded-xl border border-ink/10 bg-white shadow-[0_4px_20px_rgba(40,24,18,0.06)] transition-all duration-300 hover:shadow-[0_8px_40px_rgba(40,24,18,0.12)]"
       style={{
         ...(bgColor ? { backgroundColor: bgColor } : {}),
         ...(fixedHeight ? { height: fixedHeight } : {}),
       }}
     >
       {!isPublished && adminMode ? (
-        <div className="absolute left-2 top-2 z-20 rounded-full bg-yellow-200 px-2 py-0.5 text-xs font-bold text-yellow-800">
+        <div className="absolute left-3 top-3 z-20 rounded-full bg-yellow-200 px-2.5 py-1 text-xs font-bold text-yellow-800">
           Draft
         </div>
       ) : null}
 
       {badge ? (
-        <div className="absolute left-2 top-2 z-20 rounded-full bg-oxblood px-2 py-0.5 text-xs font-bold text-white">
+        <div className="absolute left-3 top-3 z-20 rounded-full bg-oxblood px-2.5 py-1 text-xs font-bold text-white">
           {badge}
         </div>
       ) : null}
 
       {adminMode ? (
-        <div className="absolute right-2 top-2 z-20 flex gap-2">
+        <div className="absolute right-3 top-3 z-20 flex gap-2">
           <button
             type="button"
             className="rounded-full border border-ink/10 bg-white/90 px-3 py-1 text-sm shadow-sm hover:bg-white"
@@ -141,15 +143,26 @@ export function MediaCard({ card, adminMode, onEdit, onRemove, onAudit, fixedHei
         </div>
       ) : null}
 
-      <div className="[&>div:first-child]:rounded-t-lg [&>iframe]:rounded-t-lg">
+      <div className="[&>div:first-child]:rounded-t-xl [&>iframe]:rounded-t-xl">
         {renderMedia()}
       </div>
 
       <div className="px-4 pb-4 pt-3">
-        <h3 className="text-base font-bold leading-tight text-ink">{item.title || "Untitled"}</h3>
-        <p className="mt-1.5 text-sm leading-5 text-muted">{item.description}</p>
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="text-base font-bold leading-tight text-ink">{item.title || "Untitled"}</h3>
+          {item.url ? (
+            <svg className="h-4 w-4 flex-shrink-0 text-muted opacity-0 transition-opacity group-hover:opacity-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+          ) : null}
+        </div>
+        {item.description ? (
+          <p className="mt-1.5 text-sm leading-5 text-muted line-clamp-2">{item.description}</p>
+        ) : null}
         {tags ? (
-          <div className="mt-2 flex flex-wrap gap-1.5">
+          <div className="mt-2.5 flex flex-wrap gap-1.5">
             {tags.split(",").map((tag) => (
               <span key={tag.trim()} className="rounded-full border border-ink/10 px-2 py-0.5 text-xs text-muted">
                 {tag.trim()}
@@ -162,10 +175,14 @@ export function MediaCard({ card, adminMode, onEdit, onRemove, onAudit, fixedHei
             href={item.url}
             target="_blank"
             rel="noreferrer"
-            className="mt-2 inline-block text-sm font-semibold text-oxblood hover:underline"
+            className="mt-2.5 inline-flex items-center gap-1 text-sm font-semibold text-oxblood hover:underline"
             onClick={() => onAudit?.(item)}
           >
-            {linkText || "Visit Link"} &rarr;
+            {linkText || "Visit Link"}
+            <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
           </a>
         ) : null}
       </div>

@@ -271,6 +271,15 @@ const cardData: Record<string, any[]> = {
       createdBy: "seed", updatedBy: "seed",
     },
   ],
+
+  reels: [
+    { section: "reels", type: "reel", title: "", description: "", url: "", imageUrl: "https://picsum.photos/seed/reel01/400/520", useCustomThumbnail: false, embed: false, size: "standard", sortOrder: 22, createdBy: "seed", updatedBy: "seed" },
+    { section: "reels", type: "reel", title: "", description: "", url: "", imageUrl: "https://picsum.photos/seed/reel02/400/520", useCustomThumbnail: false, embed: false, size: "standard", sortOrder: 23, createdBy: "seed", updatedBy: "seed" },
+    { section: "reels", type: "reel", title: "", description: "", url: "", imageUrl: "https://picsum.photos/seed/reel03/400/520", useCustomThumbnail: false, embed: false, size: "standard", sortOrder: 24, createdBy: "seed", updatedBy: "seed" },
+    { section: "reels", type: "reel", title: "", description: "", url: "", imageUrl: "https://picsum.photos/seed/reel04/400/520", useCustomThumbnail: false, embed: false, size: "standard", sortOrder: 25, createdBy: "seed", updatedBy: "seed" },
+    { section: "reels", type: "reel", title: "", description: "", url: "", imageUrl: "https://picsum.photos/seed/reel05/400/520", useCustomThumbnail: false, embed: false, size: "standard", sortOrder: 26, createdBy: "seed", updatedBy: "seed" },
+    { section: "reels", type: "reel", title: "", description: "", url: "", imageUrl: "https://picsum.photos/seed/reel06/400/520", useCustomThumbnail: false, embed: false, size: "standard", sortOrder: 27, createdBy: "seed", updatedBy: "seed" },
+  ],
 };
 
 // ── Helpers ──
@@ -298,16 +307,19 @@ async function seedCardsFor(section: string) {
     if (card.url) {
       existing = await db.select({ id: cards.id }).from(cards)
         .where(and(eq(cards.url, card.url), eq(cards.section, card.section))).limit(1);
-    } else {
+    } else if (card.title) {
       existing = await db.select({ id: cards.id }).from(cards)
         .where(and(eq(cards.title, card.title), eq(cards.section, card.section))).limit(1);
+    } else {
+      existing = await db.select({ id: cards.id }).from(cards)
+        .where(and(eq(cards.imageUrl, card.imageUrl), eq(cards.section, card.section))).limit(1);
     }
     if (existing.length > 0) {
       await db.update(cards).set(card).where(eq(cards.id, existing[0].id));
-      console.log(`  ~ ${card.title}`);
+      console.log(`  ~ ${card.title || card.imageUrl?.slice(0, 40) || "card"}`);
     } else {
       const [inserted] = await db.insert(cards).values(card).returning();
-      console.log(`  + ${inserted.title}`);
+      console.log(`  + ${inserted.title || inserted.imageUrl?.slice(0, 40) || "card"}`);
     }
   }
 }

@@ -51,8 +51,7 @@ export function HolographicCard({
   onHoverEnd,
   adminMode,
   onEdit,
-  onRemove,
-  onClick,
+  onRemove
 }: {
   card: CardData;
   index: number;

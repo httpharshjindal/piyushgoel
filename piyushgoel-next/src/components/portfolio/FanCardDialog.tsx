@@ -21,13 +21,14 @@ export function FanCardDialog({ open, draft, onChange, onClose, onSave }: FanCar
   const [localUploading, setLocalUploading] = useState(false);
 
   if (!open || !draft) return null;
+  const currentDraft = draft;
 
   function update<K extends keyof CardData>(field: K, value: CardData[K]) {
-    onChange({ ...draft, [field]: value });
+    onChange({ ...currentDraft, [field]: value } as CardData);
   }
 
   function updateMeta(key: string, value: unknown) {
-    onChange({ ...draft, metadata: { ...draft.metadata, [key]: value } });
+    onChange({ ...currentDraft, metadata: { ...currentDraft.metadata, [key]: value } } as CardData);
   }
 
   async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {

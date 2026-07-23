@@ -21,7 +21,7 @@ export function AdminCardDialog({ open, draft, onChange, onClose, onSave }: Admi
   if (!open) return null;
 
   function update<K extends keyof CardData>(field: K, value: CardData[K]) {
-    const next = { ...card, [field]: value };
+    const next = { ...card, [field]: value } as CardData;
     if (field === "url" && typeof value === "string") {
       const url = value.toLowerCase();
       if (url.includes("instagram.com")) {
@@ -39,7 +39,7 @@ export function AdminCardDialog({ open, draft, onChange, onClose, onSave }: Admi
   }
 
   function updateMeta(key: string, value: unknown) {
-    onChange({ ...card, metadata: { ...card.metadata, [key]: value } });
+    onChange({ ...card, metadata: { ...card.metadata, [key]: value } } as CardData);
   }
 
   return (

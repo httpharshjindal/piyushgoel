@@ -12,38 +12,49 @@ export async function POST(request: Request) {
     const base64 = buffer.toString("base64");
     const dataUri = `data:${file.type};base64,${base64}`;
 
-    const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+    const cloudName = process.env.CLOUDINARY_CLOUD_NAME || "dmsknphr";
     const apiKey = process.env.CLOUDINARY_API_KEY || "6X4FkDV4FMBO8172h1hMLDEQmfg";
     const apiSecret = process.env.CLOUDINARY_API_SECRET;
+    const uploadPreset = process.env.CLOUDINARY_UPLOAD_PRESET || "ml_default";
 
-    if (!cloudName) {
-      return NextResponse.json({ error: "CLOUDINARY_CLOUD_NAME is not configured" }, { status: 500 });
-    }
-
-    const timestamp = Math.round(Date.now() / 1000);
-    const paramsToSign = `timestamp=${timestamp}`;
-    const signature = apiSecret
-      ? crypto.createHash("sha1").update(paramsToSign + apiSecret).digest("hex")
-      : "";
+    console.log("[cloudinary] cloudName:", cloudName);
+    console.log("[cloudinary] apiKey:", apiKey ? "set" : "missing");
+    console.log("[cloudinary] apiSecret:", apiSecret ? "set" : "missing");
+    console.log("[cloudinary] uploadPreset:", uploadPreset);
 
     const uploadFormData = new FormData();
     uploadFormData.append("file", dataUri);
-    uploadFormData.append("timestamp", String(timestamp));
-    uploadFormData.append("api_key", apiKey);
-    if (signature) uploadFormData.append("signature", signature);
 
-    const res = await fetch(
-      `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
-      { method: "POST", body: uploadFormData },
-    );
+    if (uploadPreset) {
+      uploadFormData.append("upload_preset", uploadPreset);
+      console.log("[cloudinary] using unsigned upload with preset:", uploadPreset);
+    } else if (apiSecret) {
+      const timestamp = Math.round(Date.now() / 1000);
+      const signature = crypto.createHash("sha1").update(`timestamp=${timestamp}${apiSecret}`).digest("hex");
+      uploadFormData.append("timestamp", String(timestamp));
+      uploadFormData.append("api_key", apiKey);
+      uploadFormData.append("signature", signature);
+      console.log("[cloudinary] using signed upload");
+    } else {
+      return NextResponse.json({ error: "Configure CLOUDINARY_UPLOAD_PRESET or CLOUDINARY_API_SECRET in .env" }, { status: 500 });
+    }
 
+    const uploadUrl = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+    console.log("[cloudinary] posting to:", uploadUrl);
+
+    const res = await fetch(uploadUrl, { method: "POST", body: uploadFormData });
     const data = await res.json();
+
+    console.log("[cloudinary] response status:", res.status);
+    console.log("[cloudinary] response body:", JSON.stringify(data, null, 2));
+
     if (!res.ok) {
       return NextResponse.json({ error: data.error?.message || "Upload failed" }, { status: 500 });
     }
 
     return NextResponse.json({ url: data.secure_url, publicId: data.public_id });
   } catch (error) {
+    console.error("[cloudinary] exception:", error);
     return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }
 }

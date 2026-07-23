@@ -2,6 +2,8 @@ import { listCards, listSections } from "@/db/dal";
 import { defaultCards, defaultSections } from "./default-data";
 import type { CardData, SectionData } from "./default-data";
 
+const defaultSectionIds = new Set(defaultSections.map((s) => s.sectionId));
+
 function normalizeDbCard(card: Awaited<ReturnType<typeof listCards>>[number]): CardData {
   return {
     id: card.id,
@@ -23,10 +25,14 @@ export async function getPortfolioCards(): Promise<CardData[]> {
   try {
     const cards = await listCards();
     if (cards.length > 0) {
-      const dbCards = cards.map(normalizeDbCard);
-      const dbKeys = new Set(dbCards.map((c) => c.url ? `${c.url}|${c.section}` : `${c.title}|${c.section}`));
+      const dbCards = cards.map(normalizeDbCard).filter((c) => defaultSectionIds.has(c.section));
+      const dbKeys = new Set(dbCards.map((c) => {
+        if (c.url) return `${c.url}|${c.section}`;
+        if (c.title) return `${c.title}|${c.section}`;
+        return `${c.imageUrl}|${c.section}`;
+      }));
       const missingDefaultCards = defaultCards.filter((d) => {
-        const key = d.url ? `${d.url}|${d.section}` : `${d.title}|${d.section}`;
+        const key = d.url ? `${d.url}|${d.section}` : d.title ? `${d.title}|${d.section}` : `${d.imageUrl}|${d.section}`;
         return !dbKeys.has(key);
       });
       return [...dbCards, ...missingDefaultCards];
@@ -41,14 +47,16 @@ export async function getPortfolioSections(): Promise<SectionData[]> {
   try {
     const dbSections = await listSections();
     if (dbSections.length > 0) {
-      const dbMapped = dbSections.map((s) => ({
-        id: s.id,
-        sectionId: s.sectionId,
-        title: s.title,
-        note: s.note,
-        sortOrder: s.sortOrder,
-        metadata: (s.metadata as Record<string, unknown> | undefined) ?? undefined,
-      }));
+      const dbMapped = dbSections
+        .map((s) => ({
+          id: s.id,
+          sectionId: s.sectionId,
+          title: s.title,
+          note: s.note,
+          sortOrder: s.sortOrder,
+          metadata: (s.metadata as Record<string, unknown> | undefined) ?? undefined,
+        }))
+        .filter((s) => defaultSectionIds.has(s.sectionId));
       const dbIds = new Set(dbMapped.map((s) => s.sectionId));
       const missingDefaults = defaultSections.filter((d) => !dbIds.has(d.sectionId));
       return [...dbMapped, ...missingDefaults];

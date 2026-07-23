@@ -81,16 +81,25 @@ export function SectionBlock({ section, cards, adminMode, onAdd, onEdit, onRemov
 
   if (layout === "reels") {
     return (
-      <MovingReels
-        section={section}
-        cards={cards}
-        adminMode={adminMode}
-        onEdit={onEdit}
-        onRemove={onRemove}
-        onAdd={onAdd}
-        onEditSection={onEditSection}
-        onRemoveSection={onRemoveSection}
-      />
+      <motion.section
+        id={section.sectionId}
+        className="mt-7 w-full"
+        initial={{ opacity: 0, y: 18 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.45 }}
+      >
+        <MovingReels
+          section={section}
+          cards={cards}
+          adminMode={adminMode}
+          onEdit={onEdit}
+          onRemove={onRemove}
+          onAdd={onAdd}
+          onEditSection={onEditSection}
+          onRemoveSection={onRemoveSection}
+        />
+      </motion.section>
     );
   }
 

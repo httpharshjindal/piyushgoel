@@ -264,6 +264,8 @@ const cardData: Record<string, any[]> = {
   ],
 };
 
+// ── Helpers ──
+
 async function seedSections() {
   console.log("Upserting sections...");
   for (const s of sectionData) {
@@ -283,8 +285,14 @@ async function seedCardsFor(section: string) {
   }
   console.log(`Upserting ${section} cards...`);
   for (const card of list) {
-    const existing = await db.select({ id: cards.id }).from(cards)
-      .where(and(eq(cards.url, card.url), eq(cards.section, card.section))).limit(1);
+    let existing;
+    if (card.url) {
+      existing = await db.select({ id: cards.id }).from(cards)
+        .where(and(eq(cards.url, card.url), eq(cards.section, card.section))).limit(1);
+    } else {
+      existing = await db.select({ id: cards.id }).from(cards)
+        .where(and(eq(cards.title, card.title), eq(cards.section, card.section))).limit(1);
+    }
     if (existing.length > 0) {
       await db.update(cards).set(card).where(eq(cards.id, existing[0].id));
       console.log(`  ~ ${card.title}`);

@@ -24,8 +24,11 @@ export async function getPortfolioCards(): Promise<CardData[]> {
     const cards = await listCards();
     if (cards.length > 0) {
       const dbCards = cards.map(normalizeDbCard);
-      const dbIds = new Set(dbCards.map((c) => c.id));
-      const missingDefaultCards = defaultCards.filter((d) => !dbIds.has(d.id));
+      const dbKeys = new Set(dbCards.map((c) => c.url ? `${c.url}|${c.section}` : `${c.title}|${c.section}`));
+      const missingDefaultCards = defaultCards.filter((d) => {
+        const key = d.url ? `${d.url}|${d.section}` : `${d.title}|${d.section}`;
+        return !dbKeys.has(key);
+      });
       return [...dbCards, ...missingDefaultCards];
     }
     return defaultCards;

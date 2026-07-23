@@ -74,8 +74,10 @@ export function HolographicCard({
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    const rawX = ((e.clientX - rect.left) / rect.width) * 100;
+    const rawY = ((e.clientY - rect.top) / rect.height) * 100;
+    const x = Math.max(15, Math.min(85, rawX));
+    const y = Math.max(15, Math.min(85, rawY));
     setCoords({ x, y });
   };
 
@@ -127,7 +129,7 @@ export function HolographicCard({
         <div
           className="absolute inset-0 pointer-events-none mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-300"
           style={{
-            background: `radial-gradient(circle at ${coords.x}% ${coords.y}%, rgba(255, 255, 255, 0.45) 0%, transparent 60%)`,
+            background: `radial-gradient(circle at ${coords.x}% ${coords.y}%, rgba(255, 255, 255, 0.35) 0%, transparent 40%)`,
           }}
         />
 

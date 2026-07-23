@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@500;600;700&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: #181515;
+  background:
+    radial-gradient(circle at 12% 20%, rgba(159, 31, 31, 0.05), transparent 18%),
+    radial-gradient(circle at 88% 16%, rgba(159, 31, 31, 0.06), transparent 14%),
+    linear-gradient(180deg, #faf7f1 0%, #f4efe7 100%);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI UX Portfolio Direction"
+  short_description: "Portfolio UI rules for a polished, reusable look"
+  default_prompt: "Use $ui-ux-portfolio to shape a production-ready portfolio UI with strong hierarchy, controlled card sizing, editable links, and a design system that feels intentional rather than AI-generated."

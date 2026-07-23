@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Piyush Goel | Voice Artist & Content Host</title>
+    <meta
+      name="description"
+      content="Editorial single-page portfolio for Piyush Goel, voice artist, UGC creator, and content host."
+    />
+    <meta name="theme-color" content="#f4efe7" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f4efe7;
+        --paper-2: #eee6db;
+        --ink: #181515;
+        --muted: #615a54;
+        --red: #9f1f1f;
+        --red-soft: rgba(159, 31, 31, 0.12);
+        --line: rgba(24, 21, 21, 0.1);
+        --card: rgba(255, 252, 247, 0.8);
+        --shadow: 0 18px 50px rgba(40, 24, 18, 0.08);
+        --radius: 26px;
+        --sans: "Inter", system-ui, sans-serif;
+        --serif: "Cormorant Garamond", Georgia, serif;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: var(--sans);
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 12% 20%, rgba(159, 31, 31, 0.05), transparent 18%),
+          radial-gradient(circle at 88% 16%, rgba(159, 31, 31, 0.06), transparent 14%),
+          linear-gradient(180deg, #faf7f1 0%, var(--paper) 100%);
+      }
+
+      a { color: inherit; }
+      .wrap {
+        max-width: none;
+        margin: 0 auto;
+        padding: 14px 18px 48px;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        padding: 8px 0 18px;
+      }
+
+      .brand {
+        text-decoration: none;
+        line-height: 0.95;
+      }
+
+      .brand strong {
+        display: block;
+        font-family: var(--serif);
+        font-size: 2.6rem;
+        letter-spacing: -0.03em;
+        color: var(--red);
+      }
+
+      .brand span {
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--muted);
+      }
+
+      .nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        align-items: center;
+      }
+
+      .nav a {
+        text-decoration: none;
+        color: var(--muted);
+        font-size: 0.94rem;
+      }
+
+      .nav a:hover { color: var(--red); }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        text-decoration: none;
+        border-radius: 999px;
+        padding: 12px 16px;
+        font-weight: 700;
+        background: var(--red);
+        color: #fff8f4;
+        box-shadow: 0 12px 28px rgba(159, 31, 31, 0.18);
+      }
+
+      .btn.ghost {
+        background: transparent;
+        color: var(--ink);
+        border: 1px solid var(--line);
+        box-shadow: none;
+      }
+
+      .hero {
+        position: relative;
+        width: 100vw;
+        min-height: 620px;
+        margin-left: calc(50% - 50vw);
+        padding: 10px 18px 0;
+        overflow: hidden;
+      }
+
+      .hero-shell {
+        position: relative;
+        min-height: 600px;
+        border-radius: 0;
+        border: 1px solid rgba(24, 21, 21, 0.08);
+        background:
+          linear-gradient(180deg, rgba(255,255,255,0.3), rgba(255,255,255,0.06)),
+          radial-gradient(circle at 50% 14%, rgba(159, 31, 31, 0.08), transparent 20%),
+          var(--paper);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .hero-shell::before,
+      .hero-shell::after {
+        content: "";
+        position: absolute;
+        inset: auto;
+        border-radius: 50%;
+        border: 2px solid rgba(159, 31, 31, 0.38);
+      }
+
+      .hero-shell::before {
+        display: none;
+      }
+
+      .hero-shell::after {
+        display: none;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        max-width: none;
+        min-height: 600px;
+        margin: 0 auto;
+        padding: 28px 18px;
+      }
+
+      .hero-copy {
+        position: relative;
+        z-index: 4;
+        width: min(50%, 560px);
+        min-height: 540px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 30px;
+        padding: 10px 8px 24px;
+      }
+
+      .label {
+        width: fit-content;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.24em;
+        color: var(--red);
+        font-weight: 800;
+      }
+
+      .hero-title {
+        margin-top: 42px;
+        max-width: 12ch;
+        font-family: var(--serif);
+        font-size: clamp(4.2rem, 9vw, 8.8rem);
+        line-height: 0.86;
+        letter-spacing: -0.06em;
+        color: var(--red);
+      }
+
+      .hero-subtitle {
+        margin-top: 10px;
+        font-size: clamp(1.5rem, 2.8vw, 2.7rem);
+        line-height: 1;
+        letter-spacing: -0.04em;
+        color: #a33a3a;
+      }
+
+      .hero-blurb {
+        max-width: 34rem;
+        margin-top: 26px;
+        color: var(--muted);
+        font-size: 1.02rem;
+        line-height: 1.8;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .hero-mini {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 30px;
+      }
+
+      .mini-card {
+        padding: 14px 14px 16px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.58);
+        border: 1px solid var(--line);
+      }
+
+      .mini-card strong {
+        display: block;
+        margin-bottom: 6px;
+        font-size: 1.05rem;
+      }
+
+      .mini-card span {
+        display: block;
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.5;
+      }
+
+      .hero-visual {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .poster {
+        position: absolute;
+        inset: 0;
+        background: transparent;
+        overflow: hidden;
+        border: 0;
+      }
+
+      .poster-canvas {
+        position: absolute;
+        inset: 0;
+        overflow: visible;
+      }
+
+      .poster-circle {
+        position: absolute;
+        width: 760px;
+        height: 760px;
+        right: 65px;
+        bottom: -360px;
+        border-radius: 50%;
+        background: var(--red);
+        z-index: 1;
+      }
+
+      .poster-ring {
+        position: absolute;
+        border-radius: 50%;
+        border: 2px solid rgba(159, 31, 31, 0.54);
+        z-index: 1;
+      }
+
+      .ring-1 {
+        width: 1180px;
+        height: 1180px;
+        right: -145px;
+        bottom: -540px;
+        opacity: 0.26;
+      }
+
+      .ring-2 {
+        width: 1040px;
+        height: 1040px;
+        right: -75px;
+        bottom: -470px;
+        opacity: 0.46;
+      }
+
+      .ring-3 {
+        width: 900px;
+        height: 900px;
+        right: -5px;
+        bottom: -400px;
+        opacity: 0.78;
+      }
+
+      .poster-image {
+        position: absolute;
+        right: 28px;
+        bottom: 0;
+        height: 760px;
+        width: auto;
+        max-width: none;
+        z-index: 3;
+        pointer-events: none;
+      }
+
+      .section {
+        margin-top: 28px;
+        padding: 28px 18px;
+        border-radius: 28px;
+        background: rgba(255, 252, 247, 0.72);
+        border: 1px solid rgba(24, 21, 21, 0.08);
+        box-shadow: var(--shadow);
+      }
+
+      .section-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+
+      .section h2 {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(2.2rem, 4vw, 3.6rem);
+        line-height: 0.95;
+        color: var(--red);
+        letter-spacing: -0.04em;
+      }
+
+      .section-note {
+        margin: 0;
+        color: var(--muted);
+        max-width: 58ch;
+        line-height: 1.7;
+      }
+
+      .body {
+        color: var(--muted);
+        line-height: 1.8;
+        max-width: 76ch;
+      }
+
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+
+      .work-grid, .career-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .card {
+        padding: 20px;
+        border-radius: 22px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.7);
+      }
+
+      .card h3 {
+        margin: 0 0 10px;
+        font-size: 1.08rem;
+        letter-spacing: -0.02em;
+      }
+
+      .meta {
+        color: var(--muted);
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .embed {
+        margin-top: 16px;
+        aspect-ratio: 16 / 9;
+        border-radius: 18px;
+        border: 0;
+        width: 100%;
+        background: #ddd;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 14px;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 12px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.55);
+        text-decoration: none;
+        color: var(--ink);
+        font-size: 0.92rem;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 18px;
+      }
+
+      .contact {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+
+      .contact p {
+        margin: 0;
+      }
+
+      .fine {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      @media (max-width: 980px) {
+        .hero-inner,
+        .split,
+        .work-grid,
+        .career-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          min-height: auto;
+        }
+
+        .hero-shell {
+          min-height: 640px;
+        }
+
+        .hero-copy {
+          min-height: auto;
+          width: 100%;
+          padding-bottom: 480px;
+        }
+
+        .poster {
+          position: relative;
+          inset: 0;
+          min-height: 760px;
+        }
+
+        .hero-visual {
+          top: auto;
+          height: 760px;
+        }
+
+        .poster-circle {
+          width: 620px;
+          height: 620px;
+          right: -70px;
+          bottom: -270px;
+        }
+
+        .ring-1 {
+          width: 920px;
+          height: 920px;
+          right: -220px;
+          bottom: -380px;
+        }
+
+        .ring-2 {
+          width: 790px;
+          height: 790px;
+          right: -155px;
+          bottom: -315px;
+        }
+
+        .ring-3 {
+          width: 660px;
+          height: 660px;
+          right: -90px;
+          bottom: -250px;
+        }
+
+        .poster-image {
+          right: -10px;
+          height: 650px;
+        }
+      }
+
+      @media (max-width: 680px) {
+        .topbar {
+          flex-direction: column;
+          align-items: start;
+        }
+
+        .wrap {
+          padding-inline: 10px;
+        }
+
+        .hero-shell,
+        .section {
+          border-radius: 22px;
+        }
+
+        .hero-inner,
+        .section {
+          padding: 18px 10px;
+        }
+
+        .hero-mini {
+          grid-template-columns: 1fr;
+        }
+
+        .poster {
+          min-height: 620px;
+        }
+
+        .hero-copy {
+          padding-bottom: 420px;
+        }
+
+        .hero-visual {
+          height: 620px;
+        }
+
+        .poster-circle {
+          width: 470px;
+          height: 470px;
+          right: -125px;
+          bottom: -190px;
+        }
+
+        .ring-1 {
+          width: 720px;
+          height: 720px;
+          right: -250px;
+          bottom: -285px;
+        }
+
+        .ring-2 {
+          width: 610px;
+          height: 610px;
+          right: -195px;
+          bottom: -230px;
+        }
+
+        .ring-3 {
+          width: 500px;
+          height: 500px;
+          right: -140px;
+          bottom: -175px;
+        }
+
+        .poster-image {
+          right: -40px;
+          height: 540px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="topbar">
+        <a class="brand" href="#top">
+          <strong>Piyush Goel</strong>
+          <span>Voice Artist / Content Host</span>
+        </a>
+
+        <nav class="nav" aria-label="Primary">
+          <a href="#about">About</a>
+          <a href="#work">Previous Work</a>
+          <a href="#career">Career</a>
+          <a href="#contact">Contact</a>
+        </nav>
+
+        <a class="btn" href="mailto:goelpiyush314@gmail.com">Contact</a>
+      </header>
+
+      <main id="top">
+        <section class="hero">
+          <div class="hero-shell">
+            <div class="hero-inner">
+              <div class="hero-copy">
+                <div>
+                  <div class="label">Portfolio / 2026</div>
+                  <h1 class="hero-title">Piyush Goel</h1>
+                  <div class="hero-subtitle">Voice Artist</div>
+                  <p class="hero-blurb">
+                    Voice work, hosting, and creator-led storytelling with a
+                    clean, direct delivery. Built for radio, digital platforms,
+                    and branded work.
+                  </p>
+                  <div class="hero-actions">
+                    <a class="btn" href="#work">Previous Work</a>
+                    <a class="btn ghost" href="#contact">Contact</a>
+                  </div>
+                </div>
+
+                <div class="hero-mini">
+                  <div class="mini-card">
+                    <strong>Radio</strong>
+                    <span>Hint Radio 90.4, Radio Nageen 107.8, Live FM 107.2</span>
+                  </div>
+                  <div class="mini-card">
+                    <strong>Digital</strong>
+                    <span>Kuku FM, Pocket FM, Story TV, social-first content</span>
+                  </div>
+                  <div class="mini-card">
+                    <strong>Freelance</strong>
+                    <span>Commercials, narration, corporate and voice projects</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="hero-visual">
+                <div class="poster">
+                  <div class="poster-canvas" aria-hidden="true">
+                    <span class="poster-circle"></span>
+                    <span class="poster-ring ring-1"></span>
+                    <span class="poster-ring ring-2"></span>
+                    <span class="poster-ring ring-3"></span>
+                  </div>
+                  <img class="poster-image" src="testuserimage.png" alt="Piyush Goel portrait" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="about">
+          <div class="section-head">
+            <h2>About</h2>
+            <p class="section-note">
+              Short, direct positioning built from the bio you shared.
+            </p>
+          </div>
+          <p class="body">
+            Hi, I’m Piyush Goel — a Voice Artist, UGC Creator, and Content Host. I
+            create work that feels natural and credible across commercials,
+            digital ads, corporate films, podcasts, e-learning, and branded
+            content. I also host radio shows and create on-camera content that
+            connects quickly and stays clear.
+          </p>
+        </section>
+
+        <section class="section" id="work">
+          <div class="section-head">
+            <h2>Previous Work</h2>
+            <p class="section-note">
+              Public links and embeds, arranged like a clean proof section.
+            </p>
+          </div>
+
+          <div class="grid work-grid">
+            <article class="card">
+              <h3>YouTube Feature 01</h3>
+              <p class="meta">Bihar Vote Adhikar Yatra</p>
+              <iframe class="embed" src="https://www.youtube-nocookie.com/embed/LND5_8PPcF8" title="Bihar Vote Adhikar Yatra" allowfullscreen></iframe>
+            </article>
+
+            <article class="card">
+              <h3>YouTube Feature 02</h3>
+              <p class="meta">Delhi Yamuna Cleaning Latest News 2025</p>
+              <iframe class="embed" src="https://www.youtube-nocookie.com/embed/flTBGkXaRrg" title="Delhi Yamuna Cleaning Latest News 2025" allowfullscreen></iframe>
+            </article>
+
+            <article class="card">
+              <h3>YouTube Feature 03</h3>
+              <p class="meta">Prashant Kishor: The Untold Story</p>
+              <iframe class="embed" src="https://www.youtube-nocookie.com/embed/Blpr8w-40_k" title="Prashant Kishor: The Untold Story" allowfullscreen></iframe>
+            </article>
+          </div>
+
+          <div class="split" style="margin-top: 18px;">
+            <div class="card">
+              <h3>Instagram / reel work</h3>
+              <p class="meta">
+                Personality-led clips and host moments. Keep the best 3–4 here.
+              </p>
+              <div class="chips">
+                <a class="chip" href="https://www.instagram.com/reel/CkngjKmgWNa/?igsh=ZjVoa3Jhc25kM29x" target="_blank" rel="noreferrer">Kailash Kher reel</a>
+                <a class="chip" href="https://www.instagram.com/reel/Cft-bi1AcYz/?igsh=NTFtOGNpZTJtOXFp" target="_blank" rel="noreferrer">Lohri special</a>
+                <a class="chip" href="https://www.instagram.com/reel/CnWVegXpUHA/?igsh=MTVweGkwM2xzN3pqdg==" target="_blank" rel="noreferrer">Special guest</a>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Channel links</h3>
+              <p class="meta">
+                Keep this as a simple proof grid — no clutter.
+              </p>
+              <div class="chips">
+                <a class="chip" href="https://www.youtube.com/channel/UC43qCBEfmy-wouPmYlLSpIg" target="_blank" rel="noreferrer">YouTube channel</a>
+                <a class="chip" href="https://www.instagram.com/tv/CdzvTsxoZKL/?igsh=Y3hqM3ozNXBycWsx" target="_blank" rel="noreferrer">IG TV 1</a>
+                <a class="chip" href="https://www.instagram.com/tv/CXlWdTBpXmb/?igsh=czE0ejU2ZjkyNjU0" target="_blank" rel="noreferrer">IG TV 2</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="career">
+          <div class="section-head">
+            <h2>Career</h2>
+            <p class="section-note">
+              Three lanes of work, shown as editorial cards.
+            </p>
+          </div>
+
+          <div class="grid career-grid">
+            <article class="card">
+              <h3>Radio Career</h3>
+              <p class="meta">
+                Hosted morning and live radio shows for Hint Radio 90.4
+                Ghaziabad, Radio Nageen 107.8 Meerut, and Live FM 107.2 Bahrain.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3>Digital Career</h3>
+              <p class="meta">
+                Voice artist work across Kuku FM, Pocket FM, Story TV, plus
+                creator-led content for digital audiences.
+              </p>
+            </article>
+
+            <article class="card">
+              <h3>Freelancing Career</h3>
+              <p class="meta">
+                Commercials, narration, corporate films, branded content, and
+                fast-turnaround voice assignments.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="section" id="contact">
+          <div class="section-head">
+            <h2>Contact</h2>
+            <p class="section-note">
+              Direct contact only. Simple and easy to act on.
+            </p>
+          </div>
+
+          <div class="contact">
+            <div>
+              <p class="body" style="margin: 0;">
+                Email: <a href="mailto:goelpiyush314@gmail.com">goelpiyush314@gmail.com</a><br />
+                Phone: <a href="tel:+919690992005">9690992005</a>
+              </p>
+              <p class="fine">
+                For bookings, brand campaigns, and voice-over projects.
+              </p>
+            </div>
+            <div class="chips">
+              <a class="btn" href="mailto:goelpiyush314@gmail.com">Email</a>
+              <a class="btn ghost" href="tel:+919690992005">Call</a>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>
